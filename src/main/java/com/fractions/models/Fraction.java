@@ -83,7 +83,16 @@ public class Fraction {
             return String.format("%d", wholeNumber);
         }
 
-        //TODO should the fraction be reduced?
+        // if both numerator and the whole number are 0's, then this fraction has no value
+        if (numerator == 0 && wholeNumber == 0) {
+            return "0";
+        }
+
+        // for a fraction, if the denominator is a 1, then the numerator is the result
+        if (denominator == 1) {
+            return String.format("%d", numerator);
+        }
+
         if (wholeNumber > 0) {
             return String.format("%d_%d/%d", wholeNumber, numerator, denominator);
         } else if (!printAsIs && numerator > denominator) {
