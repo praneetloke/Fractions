@@ -1,5 +1,7 @@
 package com.fractions.models;
 
+import org.springframework.lang.NonNull;
+
 public class Fraction {
     private int numerator;
     private int denominator;
@@ -75,11 +77,13 @@ public class Fraction {
      *
      * @return String The string representation.
      */
-    public String printForResult(boolean printAsIs) {
+    public @NonNull
+    String printForResult(boolean printAsIs) {
         if (!isFraction) {
             return String.format("%d", wholeNumber);
         }
 
+        //TODO should the fraction be reduced?
         if (wholeNumber > 0) {
             return String.format("%d_%d/%d", wholeNumber, numerator, denominator);
         } else if (!printAsIs && numerator > denominator) {
