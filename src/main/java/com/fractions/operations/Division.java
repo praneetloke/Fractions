@@ -1,9 +1,14 @@
 package com.fractions.operations;
 
 import com.fractions.models.Fraction;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
+@Component
+@Qualifier("Division")
 public class Division extends AbstractBaseOperation {
-    public static Fraction calculateDivisionForFractions(Fraction leftOperand, Fraction rightOperand) {
+    @Override
+    public Fraction calculateResultForFractions(Fraction leftOperand, Fraction rightOperand) {
         Fraction result;
 
         if (leftOperand.getWholeNumber() > 0) {
@@ -17,7 +22,8 @@ public class Division extends AbstractBaseOperation {
         return getFraction(leftOperand.getNumerator() * rightOperand.getDenominator(), leftOperand.getDenominator() * rightOperand.getNumerator());
     }
 
-    public static Fraction calculateDivisionForFractionAndWholeNumber(Fraction leftOperand, Fraction rightOperand) {
+    @Override
+    public Fraction calculateResultForFractionAndWholeNumber(Fraction leftOperand, Fraction rightOperand) {
         if (!leftOperand.isFraction()) {
             return getFraction((leftOperand.getWholeNumber() * rightOperand.getDenominator()), rightOperand.getNumerator());
         }

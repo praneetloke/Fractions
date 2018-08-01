@@ -1,5 +1,9 @@
 package com.fractions.operations;
 
-public interface IOperation {
+import com.fractions.models.Fraction;
 
+public interface IOperation {
+    Fraction calculateResultForFractions(Fraction leftOperand, Fraction rightOperand);
+
+    Fraction calculateResultForFractionAndWholeNumber(Fraction leftOperand, Fraction rightOperand);
 }

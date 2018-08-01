@@ -1,9 +1,14 @@
 package com.fractions.operations;
 
 import com.fractions.models.Fraction;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
+@Component
+@Qualifier("Multiply")
 public class Multiply extends AbstractBaseOperation {
-    public static Fraction calculateProductForFractions(Fraction leftOperand, Fraction rightOperand) {
+    @Override
+    public Fraction calculateResultForFractions(Fraction leftOperand, Fraction rightOperand) {
         if (leftOperand.getWholeNumber() > 0) {
             leftOperand = leftOperand.asImproperFraction();
         }
@@ -15,7 +20,8 @@ public class Multiply extends AbstractBaseOperation {
         return getFraction((leftOperand.getNumerator() * rightOperand.getNumerator()), (leftOperand.getDenominator() * rightOperand.getDenominator()));
     }
 
-    public static Fraction calculateProductForFractionAndWholeNumber(Fraction leftOperand, Fraction rightOperand) {
+    @Override
+    public Fraction calculateResultForFractionAndWholeNumber(Fraction leftOperand, Fraction rightOperand) {
         if (leftOperand.isFraction()) {
             return getFraction((leftOperand.getNumerator() * rightOperand.getWholeNumber()), leftOperand.getDenominator());
         } else {

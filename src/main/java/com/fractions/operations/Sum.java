@@ -1,9 +1,14 @@
 package com.fractions.operations;
 
 import com.fractions.models.Fraction;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
+@Component
+@Qualifier("Sum")
 public class Sum extends AbstractBaseOperation {
-    public static Fraction calculateSumForFractions(Fraction leftOperand, Fraction rightOperand) {
+    @Override
+    public Fraction calculateResultForFractions(Fraction leftOperand, Fraction rightOperand) {
         Fraction result;
 
         if (leftOperand.getWholeNumber() > 0) {
@@ -29,15 +34,16 @@ public class Sum extends AbstractBaseOperation {
         return result;
     }
 
-    public static Fraction calculateSumForFractionAndWholeNumber(Fraction leftOperand, Fraction rightOperand) {
+    @Override
+    public Fraction calculateResultForFractionAndWholeNumber(Fraction leftOperand, Fraction rightOperand) {
         if (leftOperand.isFraction()) {
             int commonDenominator = leftOperand.getDenominator();
             Fraction rightOperandAsFraction = getFraction((rightOperand.getWholeNumber() * commonDenominator), commonDenominator);
-            return calculateSumForFractions(leftOperand, rightOperandAsFraction);
+            return calculateResultForFractions(leftOperand, rightOperandAsFraction);
         } else {
             int commonDenominator = rightOperand.getDenominator();
             Fraction leftOperandAsFraction = getFraction((leftOperand.getWholeNumber() * commonDenominator), commonDenominator);
-            return calculateSumForFractions(leftOperandAsFraction, rightOperand);
+            return calculateResultForFractions(leftOperandAsFraction, rightOperand);
         }
     }
 }

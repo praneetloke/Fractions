@@ -2,15 +2,30 @@ package com.fractions;
 
 import com.fractions.models.Fraction;
 import com.fractions.models.FractionsInput;
-import com.fractions.operations.Division;
-import com.fractions.operations.Multiply;
-import com.fractions.operations.Sum;
+import com.fractions.operations.IOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.shell.standard.ShellComponent;
 import org.springframework.shell.standard.ShellMethod;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 @ShellComponent
 public class Commands {
+
+    private final IOperation sumOperation;
+    private final IOperation differenceOperation;
+    private final IOperation divisionOperation;
+    private final IOperation multiplyOperation;
+
+    @Autowired
+    public Commands(@Qualifier("Sum") IOperation sumOperation,
+                    @Qualifier("Difference") IOperation differenceOperation,
+                    @Qualifier("Division") IOperation divisionOperation,
+                    @Qualifier("Multiply") IOperation multiplyOperation) {
+        this.divisionOperation = divisionOperation;
+        this.multiplyOperation = multiplyOperation;
+        this.sumOperation = sumOperation;
+        this.differenceOperation = differenceOperation;
+    }
 
     @ShellMethod("Performs the operations on a pair of fraction/whole number operands.")
     public String calculate(FractionsInput fractionsInput) {
@@ -52,13 +67,13 @@ public class Commands {
         Fraction rightOperand = fractionsInput.getRightOperand();
         // if both of them are fractions
         if (leftOperand.isFraction() && rightOperand.isFraction()) {
-            result = Sum.calculateSumForFractions(leftOperand, rightOperand);
+            result = this.sumOperation.calculateResultForFractions(leftOperand, rightOperand);
         } else if (!leftOperand.isFraction() && !rightOperand.isFraction()) {
             // if neither of them are fractions
             result = Fraction.fromString(String.format("%d", leftOperand.getWholeNumber() + rightOperand.getWholeNumber()));
         } else {
             // if one of them is a fraction
-            result = Sum.calculateSumForFractionAndWholeNumber(leftOperand, rightOperand);
+            result = this.sumOperation.calculateResultForFractionAndWholeNumber(leftOperand, rightOperand);
         }
 
         return result;
@@ -80,13 +95,13 @@ public class Commands {
         Fraction rightOperand = fractionsInput.getRightOperand();
         // if both of them are fractions
         if (leftOperand.isFraction() && rightOperand.isFraction()) {
-            result = Multiply.calculateProductForFractions(leftOperand, rightOperand);
+            result = this.multiplyOperation.calculateResultForFractions(leftOperand, rightOperand);
         } else if (!leftOperand.isFraction() && !rightOperand.isFraction()) {
             // if neither of them are fractions
             result = Fraction.fromString(String.format("%d", leftOperand.getWholeNumber() * rightOperand.getWholeNumber()));
         } else {
             // if one of them is a fraction
-            result = Multiply.calculateProductForFractionAndWholeNumber(leftOperand, rightOperand);
+            result = this.multiplyOperation.calculateResultForFractionAndWholeNumber(leftOperand, rightOperand);
         }
 
         return result;
@@ -108,7 +123,7 @@ public class Commands {
         Fraction rightOperand = fractionsInput.getRightOperand();
         // if both of them are fractions
         if (leftOperand.isFraction() && rightOperand.isFraction()) {
-            result = Division.calculateDivisionForFractions(leftOperand, rightOperand);
+            result = this.divisionOperation.calculateResultForFractions(leftOperand, rightOperand);
         } else if (!leftOperand.isFraction() && !rightOperand.isFraction()) {
             if (rightOperand.getWholeNumber() == 0) {
                 throw new IllegalArgumentException("Cannot divide by 0.");
@@ -117,7 +132,7 @@ public class Commands {
             result = Fraction.fromString(String.format("%d", leftOperand.getWholeNumber() / rightOperand.getWholeNumber()));
         } else {
             // if one of them is a fraction
-            result = Division.calculateDivisionForFractionAndWholeNumber(leftOperand, rightOperand);
+            result = this.divisionOperation.calculateResultForFractionAndWholeNumber(leftOperand, rightOperand);
         }
 
         return result;
@@ -134,6 +149,20 @@ public class Commands {
      * @return A Fraction containing the result. The result can be printed using the Fraction.printForResult() method.
      */
     private Fraction calculateDifference(FractionsInput fractionsInput) {
-        throw new NotImplementedException();
+        Fraction result;
+        Fraction leftOperand = fractionsInput.getLeftOperand();
+        Fraction rightOperand = fractionsInput.getRightOperand();
+        // if both of them are fractions
+        if (leftOperand.isFraction() && rightOperand.isFraction()) {
+            result = this.differenceOperation.calculateResultForFractions(leftOperand, rightOperand);
+        } else if (!leftOperand.isFraction() && !rightOperand.isFraction()) {
+            // if neither of them are fractions
+            result = Fraction.fromString(String.format("%d", leftOperand.getWholeNumber() - rightOperand.getWholeNumber()));
+        } else {
+            // if one of them is a fraction
+            result = this.differenceOperation.calculateResultForFractionAndWholeNumber(leftOperand, rightOperand);
+        }
+
+        return result;
     }
 }
