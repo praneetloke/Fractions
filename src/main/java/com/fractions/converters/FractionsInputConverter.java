@@ -20,14 +20,16 @@ public class FractionsInputConverter implements Converter<String, FractionsInput
 
     @Override
     public FractionsInput convert(String source) {
+        // remove leading and trailing whitespaces
+        source = source.trim();
         String cleanedInput = CONTINUOUS_WHITESPACE_PATTERN.matcher(source).replaceAll(" ");
         String[] inputArray = cleanedInput.split(" ");
         // validate the argument length
         validateInputLength(inputArray);
-        // validate the operator
-        validateOperators(inputArray[1]);
         // validate operands are not floating point numbers
         validateOperandIsNotFloatingPointNumber(inputArray[0]);
+        // validate the operator
+        validateOperators(inputArray[1]);
         validateOperandIsNotFloatingPointNumber(inputArray[2]);
 
         return new FractionsInput(inputArray[0], inputArray[1], inputArray[2]);
