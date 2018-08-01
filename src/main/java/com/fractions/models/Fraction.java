@@ -19,6 +19,7 @@ public class Fraction {
         int numerator = 0, denominator = 0, wholeNumber = 0;
         boolean isFraction = false;
 
+        // TODO maybe move these validations to a validator?
         if (input.contains("/")) {
             isFraction = true;
             if (!input.contains("_")) {
