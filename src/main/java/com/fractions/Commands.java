@@ -53,11 +53,13 @@ public class Commands {
         //TODO should the result be reduced? Greatest Common Divisor?
         // on one hand reducing the fraction makes sense but the experience it gives leads to a bit of confusion because
         // sometimes you just may want to see the simple result of an operation.
+        // NOTE: if this is enabled, all of the tests must be updated!
+
 //        int gcd = MathUtils.gcd(result.getNumerator(), result.getDenominator());
 //        if (gcd > 1) {
 //            result = Fraction.fromString(String.format("%d/%d", (result.getNumerator() / gcd), (result.getDenominator() / gcd)));
 //        }
-        return result.printForResult(false);
+        return result.printForResult();
     }
 
     /**

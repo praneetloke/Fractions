@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Qualifier("Difference")
-public class Difference extends AbstractBaseOperation {
+public class DifferenceOperation extends AbstractBaseOperation {
     @Override
     public Fraction calculateResultForFractions(Fraction leftOperand, Fraction rightOperand) {
         Fraction result;

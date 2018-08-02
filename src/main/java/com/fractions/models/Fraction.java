@@ -1,5 +1,6 @@
 package com.fractions.models;
 
+import com.fractions.converters.FractionToStringConverter;
 import org.springframework.lang.NonNull;
 
 public class Fraction {
@@ -65,47 +66,21 @@ public class Fraction {
         return isFraction;
     }
 
-    private String printImproperFractionAsMixedFraction() {
-        return String.format("%d_%d/%d", (numerator / denominator), (numerator % denominator), denominator);
-    }
-
     public Fraction asImproperFraction() {
         return Fraction.fromString(String.format("%d/%d", (denominator * wholeNumber) + numerator, denominator));
     }
 
     /**
      * A fraction-aware method for printing the String representation of this Fraction.
-     *
-     * @return String The string representation.
+     * Note: The printAsIs flag only has effect on fraction instances that are constructed from the user's original input.
+     * @return A string representation of this Fraction.
      */
-    public @NonNull String printForResult(boolean printAsIs) {
-        if (!isFraction) {
-            return String.format("%d", wholeNumber);
-        }
-
-        // if both numerator and the whole number are 0's, then this fraction has no value
-        if (numerator == 0 && wholeNumber == 0) {
-            return "0";
-        }
-
-        // for a fraction, if the denominator is a 1, then the numerator is the result
-        if (denominator == 1) {
-            return String.format("%d", numerator);
-        }
-
-        if (wholeNumber > 0) {
-            return String.format("%d_%d/%d", wholeNumber, numerator, denominator);
-        } else if (!printAsIs && numerator > denominator) {
-            // if we don't have to print this Fraction instance as-is, then convert the improper fraction to a mixed one
-            // and this is an improper fraction since there is no whole number part and the numerator is greater than the denominator
-            return printImproperFractionAsMixedFraction();
-        }
-
-        return String.format("%d/%d", numerator, denominator);
+    public @NonNull String printForResult() {
+        return new FractionToStringConverter(false).convert(this);
     }
 
     @Override
     public String toString() {
-        return printForResult(true);
+        return new FractionToStringConverter(true).convert(this);
     }
 }

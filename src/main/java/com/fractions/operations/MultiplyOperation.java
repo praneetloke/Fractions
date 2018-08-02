@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Qualifier("Multiply")
-public class Multiply extends AbstractBaseOperation {
+public class MultiplyOperation extends AbstractBaseOperation {
     @Override
     public Fraction calculateResultForFractions(Fraction leftOperand, Fraction rightOperand) {
         if (leftOperand.getWholeNumber() > 0) {
@@ -23,8 +23,14 @@ public class Multiply extends AbstractBaseOperation {
     @Override
     public Fraction calculateResultForFractionAndWholeNumber(Fraction leftOperand, Fraction rightOperand) {
         if (leftOperand.isFraction()) {
+            if (leftOperand.getWholeNumber() > 0) {
+                leftOperand = leftOperand.asImproperFraction();
+            }
             return getFraction((leftOperand.getNumerator() * rightOperand.getWholeNumber()), leftOperand.getDenominator());
         } else {
+            if (rightOperand.getWholeNumber() > 0) {
+                rightOperand = rightOperand.asImproperFraction();
+            }
             return getFraction((rightOperand.getNumerator() * leftOperand.getWholeNumber()), rightOperand.getDenominator());
         }
     }

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Qualifier("Sum")
-public class Sum extends AbstractBaseOperation {
+public class SumOperation extends AbstractBaseOperation {
     @Override
     public Fraction calculateResultForFractions(Fraction leftOperand, Fraction rightOperand) {
         Fraction result;
