@@ -7,12 +7,13 @@
 
 #### To build
 
-Run `.\gradlew.bat bootJar` to build and assemble an executable Spring Boot JAR with all of its dependencies.
+Run `.\gradlew.bat bootJar` (or `.\gradlew bootJar` if you're on a Mac) to build and assemble an executable Spring Boot JAR with all of its dependencies.
 
 #### To run
 
 - Run `java -jar .\build\libs\fractions-0.0.1-SNAPSHOT.jar`.
-- This will bring up the shell prompt.
+  - Ensure `java` is on your terminal's `Path`.
+- This will start Spring Boot and bring up the shell prompt. Like this: `shell:>`.
 - The only command that is supported right now is the `calculate` command.
 - Here are some examples for running the calculate command:
 > Use a space to separate operands and the operator. Multiple continuous spaces are handled by the application.
