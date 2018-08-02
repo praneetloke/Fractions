@@ -26,8 +26,8 @@ public class FractionToStringConverter implements Converter<Fraction, String> {
             return "0";
         }
 
-        // for a fraction, if the denominator is a 1, then the numerator is the result
-        if (denominator == 1) {
+        // for a fraction, if the denominator is a 1 and there is no whole number part, i.e., this is not a mixed fraction, then the numerator is the result
+        if (denominator == 1 && wholeNumber == 0) {
             return String.format("%d", numerator);
         }
 

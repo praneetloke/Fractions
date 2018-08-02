@@ -33,4 +33,17 @@ public class FractionsInputConverterTest {
         FractionsInput fractionsInput = converter.convert("   1_1/13          +      1/2  ");
         Assert.assertEquals("1_1/13 + 1/2", fractionsInput.toString());
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void failConversionForFractionWithZeroDenonminator() {
+        Converter<String, FractionsInput> converter = new FractionsInputConverter();
+        converter.convert("1 + 2/0");
+    }
+
+    @Test
+    public void testConvertForMixedFractionWithZeroNumeratorPart() {
+        Converter<String, FractionsInput> converter = new FractionsInputConverter();
+        FractionsInput fractionsInput = converter.convert("1/2 + 2_0/1");
+        Assert.assertEquals("1/2 + 2_0/1", fractionsInput.toString());
+    }
 }

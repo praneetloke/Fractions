@@ -12,7 +12,7 @@ public class DivisionOperationTest {
         String expected = "8/18";
         Fraction result = divisionOperation.calculateResultForFractions(Fraction.fromString("2/3"), Fraction.fromString("6/4"));
         String actual = result.printForResult();
-        Assert.assertTrue(actual.equals(expected));
+        Assert.assertEquals(expected, actual);
     }
 
     @Test
@@ -20,7 +20,7 @@ public class DivisionOperationTest {
         String expected = "2";
         Fraction result = divisionOperation.calculateResultForFractionAndWholeNumber(Fraction.fromString("3"), Fraction.fromString("6/4"));
         String actual = result.printForResult();
-        Assert.assertTrue(actual.equals(expected));
+        Assert.assertEquals(expected, actual);
     }
 
     @Test
@@ -28,6 +28,6 @@ public class DivisionOperationTest {
         String expected = "25/123";
         Fraction result = divisionOperation.calculateResultForFractions(Fraction.fromString("1_2/3"), Fraction.fromString("7_6/5"));
         String actual = result.printForResult();
-        Assert.assertTrue(actual.equals(expected));
+        Assert.assertEquals(expected, actual);
     }
 }
