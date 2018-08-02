@@ -12,7 +12,16 @@ Run `.\gradlew.bat bootJar` to build and assemble an executable Spring Boot JAR 
 #### To run
 
 - Run `java -jar .\build\libs\fractions-0.0.1-SNAPSHOT.jar`.
-- This will bring up the shell prompt. 
+- This will bring up the shell prompt.
+- The only command that is supported right now is the `calculate` command.
+- Here are some examples for running the calculate command:
+> Use a space to separate operands and the operator. Multiple continuous spaces are handled by the application.
+```shell
+shell:>calculate "1 + 1/2"
+shell:>calculate " 1     -    2/3"
+shell:>calculate "2_2/3  +  9_9/2"
+shell:>calculate "1/2 + 1/2"
+```
 
 #### Features
 
