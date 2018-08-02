@@ -33,17 +33,4 @@ public class Sum extends AbstractBaseOperation {
 
         return result;
     }
-
-    @Override
-    public Fraction calculateResultForFractionAndWholeNumber(Fraction leftOperand, Fraction rightOperand) {
-        if (leftOperand.isFraction()) {
-            int commonDenominator = leftOperand.getDenominator();
-            Fraction rightOperandAsFraction = getFraction((rightOperand.getWholeNumber() * commonDenominator), commonDenominator);
-            return calculateResultForFractions(leftOperand, rightOperandAsFraction);
-        } else {
-            int commonDenominator = rightOperand.getDenominator();
-            Fraction leftOperandAsFraction = getFraction((leftOperand.getWholeNumber() * commonDenominator), commonDenominator);
-            return calculateResultForFractions(leftOperandAsFraction, rightOperand);
-        }
-    }
 }

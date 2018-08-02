@@ -78,8 +78,7 @@ public class Fraction {
      *
      * @return String The string representation.
      */
-    public @NonNull
-    String printForResult(boolean printAsIs) {
+    public @NonNull String printForResult(boolean printAsIs) {
         if (!isFraction) {
             return String.format("%d", wholeNumber);
         }

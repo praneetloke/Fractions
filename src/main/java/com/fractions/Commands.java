@@ -28,7 +28,7 @@ public class Commands {
         this.differenceOperation = differenceOperation;
     }
 
-    @ShellMethod("Performs the operations on a pair of fraction/whole number operands.")
+    @ShellMethod("Performs an arithmetic operation on a pair of fraction/whole number operands.")
     public String calculate(@NonNull FractionsInput fractionsInput) {
         System.out.println(String.format("Calculating %s %s %s.", fractionsInput.getLeftOperand(), fractionsInput.getOperator(), fractionsInput.getRightOperand()));
 
@@ -51,6 +51,12 @@ public class Commands {
         }
 
         //TODO should the result be reduced? Greatest Common Divisor?
+        // on one hand reducing the fraction makes sense but the experience it gives leads to a bit of confusion because
+        // sometimes you just may want to see the simple result of an operation.
+//        int gcd = MathUtils.gcd(result.getNumerator(), result.getDenominator());
+//        if (gcd > 1) {
+//            result = Fraction.fromString(String.format("%d/%d", (result.getNumerator() / gcd), (result.getDenominator() / gcd)));
+//        }
         return result.printForResult(false);
     }
 
@@ -64,8 +70,7 @@ public class Commands {
      * @param fractionsInput The converted FractionsInput to calculate the sum.
      * @return A Fraction containing the result. The result can be printed using the Fraction.printForResult() method.
      */
-    private @NonNull
-    Fraction calculateSum(@NonNull FractionsInput fractionsInput) {
+    private @NonNull Fraction calculateSum(@NonNull FractionsInput fractionsInput) {
         Fraction result;
         Fraction leftOperand = fractionsInput.getLeftOperand();
         Fraction rightOperand = fractionsInput.getRightOperand();
@@ -93,8 +98,7 @@ public class Commands {
      * @param fractionsInput The converted FractionsInput to calculate the product.
      * @return A Fraction containing the result. The result can be printed using the Fraction.printForResult() method.
      */
-    private @NonNull
-    Fraction calculateProduct(@NonNull FractionsInput fractionsInput) {
+    private @NonNull Fraction calculateProduct(@NonNull FractionsInput fractionsInput) {
         Fraction result;
         Fraction leftOperand = fractionsInput.getLeftOperand();
         Fraction rightOperand = fractionsInput.getRightOperand();
@@ -122,8 +126,7 @@ public class Commands {
      * @param fractionsInput The converted FractionsInput to calculate the division.
      * @return A Fraction containing the result. The result can be printed using the Fraction.printForResult() method.
      */
-    private @NonNull
-    Fraction calculateDivision(@NonNull FractionsInput fractionsInput) {
+    private @NonNull Fraction calculateDivision(@NonNull FractionsInput fractionsInput) {
         Fraction result;
         Fraction leftOperand = fractionsInput.getLeftOperand();
         Fraction rightOperand = fractionsInput.getRightOperand();
@@ -154,8 +157,7 @@ public class Commands {
      * @param fractionsInput The converted FractionsInput to calculate the difference.
      * @return A Fraction containing the result. The result can be printed using the Fraction.printForResult() method.
      */
-    private @NonNull
-    Fraction calculateDifference(@NonNull FractionsInput fractionsInput) {
+    private @NonNull Fraction calculateDifference(@NonNull FractionsInput fractionsInput) {
         Fraction result;
         Fraction leftOperand = fractionsInput.getLeftOperand();
         Fraction rightOperand = fractionsInput.getRightOperand();
